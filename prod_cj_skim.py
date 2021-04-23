@@ -2,21 +2,13 @@ import requests
 from bs4 import BeautifulSoup as bs
 
 
-def get_cj_csrf_token(cj_link='https://cjdropshipping.com'):
-    '''
-    Usage
-    get the csrf token 
-    '''
-    response = requests.get(cj_link)
-    Cookies=list(response.cookies )
-    # printing request cookies
-    return str(Cookies[-1]).split(' ')[1].split('=')[1]#splitting the string to get the csrf
+
 
 class scrape_it(): 
 
     '''
     Usage
-     This class is used to scrape the pages exclusively for CJ_DROPSHIPPING.
+     This class is used to scrape the "STATIC" pages exclusively for CJ_DROPSHIPPING.
      This class to be used for initial fresh scrapping only 
      
     returns
@@ -51,6 +43,7 @@ class scrape_it():
       #check google images and skim data 
       #
     '''
+    
     global cj_links
     global cj_price
     global cj_img
@@ -87,6 +80,8 @@ class scrape_it():
            
     def get_cj_interest(location,session):
        return list(map(lambda total_link:total_link.getText().split('\n')[3], location.findAll("span",{'class':'list'})))
+    
+    
      
     def get_cj_img(location,session):
          images=list(map(lambda img_var: ((img_var.find('img'))),location.find_all("a",{'class':'detail-anchor'})))
@@ -124,5 +119,7 @@ class scrape_it():
           return cj_interest,cj_links,cj_price,cj_img[0],cj_img[1]
         
 prods=scrape_it()
+
+#print(prods.return_the_info())
 
 
