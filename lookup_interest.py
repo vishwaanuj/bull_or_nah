@@ -2,13 +2,18 @@ import functools
 import operator
 import os
 
+def check_hop_in_interest(prospects):
+        list_of_prospects=[]
+        for x in prospects: 
+             for k,v in x.items():
+                     #print(k,v)
+                     if v>5:list_of_prospects.append(k)
+        return list_of_prospects
 class interest_spike():
-   '''
-    looks up the file and collect the data and gives up the interest 
-   '''
-    
     def collect_the_files(self):
         return (os.listdir('cj_prods_list/'))
+    
+
 
     def lookup_interest_keys(repeating_keys):
          return list(set(functools.reduce(operator.iconcat,repeating_keys, [])))
@@ -44,9 +49,12 @@ class interest_spike():
                         pass
              main_interest.append({a_key:seller_interest_data})
         spike=check_interest_spike(main_interest)
+        spike=check_hop_in_interest(spike)
         return spike
 
 
 
 lookup=interest_spike()
 lookup.lookup_interest()
+
+    
